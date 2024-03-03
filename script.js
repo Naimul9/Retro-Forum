@@ -1,10 +1,13 @@
 const cardContainer = document.getElementById('card-container')
 
-const loadCard = async ()=>{
-    const response = await fetch(' https://openapi.programming-hero.com/api/retro-forum/posts')
+const loadCard = async (catName)=>{
+    const response = await fetch(`https://openapi.programming-hero.com/api/retro-forum/posts?category=${catName}`)
     const data = await response.json()
+
+    cardContainer.innerHTML =''
     data.posts.forEach(item => {
         
+       
 const div =document.createElement('div')
 
 div.innerHTML=`
@@ -65,7 +68,7 @@ div.innerHTML=`
     
      <div class="mt-3">
        
-        <button class="btn bg-transparent rounded-full border-none"> 
+        <button onclick="markButton()" class="btn bg-transparent rounded-full border-none"> 
         <svg width="28.000000" height="28.000000" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
    
           
@@ -88,14 +91,134 @@ div.innerHTML=`
 
 
 `
+
 cardContainer.appendChild(div)
+
+
         
     });
 
+    
 
+}
+
+const latestPost = document.getElementById('latest-post')
+
+
+const loadLatestPost = async ()=>{
+    const response = await fetch('https://openapi.programming-hero.com/api/retro-forum/latest-posts')
+    const data = await response.json()
+    data.forEach(item => {
+const div = document.createElement('div')
+div.innerHTML = `
+
+<div class="w-[374px] h-[482px] bg-white border border-gray-300 rounded-xl">
+
+<div class="  w-[326px] bg-[#12132D0D] mx-auto rounded-xl mt-6"> 
+<img class=" rounded-2xl" src="${item.cover_image} ">
+ </div>
+
+<div class="flex items-center mt-1 px-5 gap-1">
+
+    <img class="w-4 h-4" src="images/calender.png" alt="">
+    
+
+ <p>${item.author.posted_date ? item.author.posted_date: "No Publish date"} </p>
+
+    
+</div>
+
+<div class=" h-24">
+<h4 class="mt-3 font-extrabold text-[18px]">${item.title} </h4>
+
+<p class="mt-3 ">${item.description} </p>
+
+</div>
+
+
+<div class= "flex gap-5 mt-6 px-5">
+
+    <img class=" rounded-full w-[44px] h-[44px]" src="${item.profile_image} " alt="">
+    
+    <div>
+    <h1 class=" font-bold">${item.author.name} </h1>
+    <p class=" mt-1 font-normal" >${item.author.designation ? item.author.designation : "Unknown"}</p>
+    </div>
+    
+    </div>
+
+</div>
+
+`
+latestPost.appendChild(div)
+    })
 
 }
 
 
+loadLatestPost()
 
-loadCard()
+loadCard("Coding")
+
+
+
+const markButton = async(id) =>{
+   
+    const markAsRead = document.getElementById('mark-as-read');
+
+    const div = document.createElement('div')
+
+    div.innerHTML =`
+
+    <div class="w-[326px] h-[82px] bg-white mx-auto rounded-xl flex gap-3">
+
+    <h>${data.posts.id} </h>
+    
+    <p>asdfasdfasDF</p>
+
+    </div>
+    `
+
+    markAsRead.appendChild(div)
+
+ 
+
+
+  
+
+    
+    let m = getConvertedValue('markNumber')
+    
+    
+    document.getElementById('markNumber').innerText = m+1
+}
+
+
+
+    
+    
+
+
+
+
+
+function getConvertedValue(id){
+    const marks = document.getElementById(id).innerText
+    const mark = parseInt(marks)
+   return mark
+}
+
+
+
+
+const handleSearch = () =>{
+const value = document.getElementById('input').value
+
+    loadCard(value)
+
+
+
+
+
+
+}
