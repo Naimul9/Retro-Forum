@@ -33,7 +33,7 @@ div.innerHTML=`
     <div class="flex-1">
         <p class="text-[14px] font-medium flex gap-3">#${item.category} <span>${item.author.name} </span> </p>
 
-<p class="mt-3 font-bold text-[20px]">${item.title} </p>
+<p id="titleDiv" class="mt-3 font-bold text-[20px]">${item.title} </p>
 
 <p class="mt-4 font-normal text-[16px] ">${item.description} </p>
 
@@ -80,7 +80,7 @@ div.innerHTML=`
     
      <div class="mt-3">
        
-        <button onclick="markButton()" class="btn bg-transparent rounded-full border-none"> 
+     <button onclick="markButton('${item.title}', '${item.view_count}')" class="btn bg-transparent rounded-full border-none">
         <svg width="28.000000" height="28.000000" viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
    
           
@@ -170,28 +170,36 @@ latestPost.appendChild(div)
 
 loadLatestPost()
 
-loadCard("Coding")
+loadCard("Comedy")
 
 
 
-const markButton = () =>{
-   
-    const markAsRead = document.getElementById('mark-as-read');
-
-    const div = document.createElement('div')
-
-    div.innerHTML =`
-
-    <div class="w-[326px] h-[82px] bg-white mx-auto rounded-xl flex gap-3">
-
-    <h> 65432</h>
+const markButton = (title, viewCount) => {
     
-    <p>asdfasdfasDF</p>
+    console.log(title, viewCount);
+    const markAsRead = document.getElementById('mark-as-read');
+    const div = document.createElement('div');
 
-    </div>
-    `
 
-    markAsRead.appendChild(div)
+    div.innerHTML = `
+        <div class="w-[326px] h-[82px] bg-white mx-auto rounded-xl flex gap-3 py-5 px-2">
+            <h class= " font-black ">${title}</h>
+            <p class="flex gap-3 mt-3">
+            
+        
+        <svg class= " mt-1" width="22.500000" height="15.500000" viewBox="0 0 22.5 15.5" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+            <desc>
+                    Created with Pixso.
+            </desc>
+            <defs/>
+            <path id="Vector" d="M9.60009 9.3999C10.0377 9.83752 10.6312 10.0834 11.25 10.0834C11.8688 10.0834 12.4623 9.83752 12.8999 9.3999C13.3375 8.96228 13.5833 8.3689 13.5833 7.75C13.5833 7.1311 13.3375 6.53772 12.8999 6.1001C12.4623 5.66248 11.8688 5.41663 11.25 5.41663C10.6312 5.41663 10.0377 5.66248 9.60009 6.1001C9.1625 6.53772 8.91667 7.1311 8.91667 7.75C8.91667 8.3689 9.1625 8.96228 9.60009 9.3999ZM11.25 14.75C7.05 14.75 3.55 12.4166 0.75 7.75C3.55 3.08337 7.05 0.75 11.25 0.75C15.45 0.75 18.95 3.08337 21.75 7.75C18.95 12.4166 15.45 14.75 11.25 14.75Z" stroke="#12132D" stroke-opacity="0.600000" stroke-width="1.500000" stroke-linejoin="round"/>
+        </svg>
+        
+            
+            ${viewCount}</p>
+        </div>
+    `;
+    markAsRead.appendChild(div);
 
  
 
