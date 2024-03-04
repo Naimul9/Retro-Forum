@@ -10,12 +10,24 @@ const loadCard = async (catName)=>{
        
 const div =document.createElement('div')
 
+let indicatorColorClass = 'bg-red-500'
+ 
+ if (item.isActive) {
+     indicatorColorClass = 'bg-green-500'
+ }
+
 div.innerHTML=`
 
  <div class="w-11/12 lg:w-[772px] lg:h-[270px] bg-[#797DFC1A] rounded-2xl flex flex-col lg:flex-row gap-10 px-10 py-10">
 
+
+ <div class="indicator">
+ <span id="indicator-color" class="indicator-item badge ${indicatorColorClass}">  </span> 
+ <div class="place-items-center"> <img class=" rounded-xl w-[72px] h-[72px] " src="${item.image}" alt="">  </div>
+</div>
+
     <div>
-    <img class=" rounded-xl w-[72px] h-[72px] " src="${item.image}" alt="">
+    
     </div>
 
     <div class="flex-1">
@@ -91,7 +103,7 @@ div.innerHTML=`
 
 
 `
-
+spinner()
 cardContainer.appendChild(div)
 
 
@@ -162,7 +174,7 @@ loadCard("Coding")
 
 
 
-const markButton = async(id) =>{
+const markButton = () =>{
    
     const markAsRead = document.getElementById('mark-as-read');
 
@@ -172,7 +184,7 @@ const markButton = async(id) =>{
 
     <div class="w-[326px] h-[82px] bg-white mx-auto rounded-xl flex gap-3">
 
-    <h>${data.posts.id} </h>
+    <h> 65432</h>
     
     <p>asdfasdfasDF</p>
 
@@ -212,6 +224,8 @@ function getConvertedValue(id){
 
 
 const handleSearch = () =>{
+
+    spinner(true)
 const value = document.getElementById('input').value
 
     loadCard(value)
@@ -221,4 +235,19 @@ const value = document.getElementById('input').value
 
 
 
+}
+
+
+const spinner = (isLoading) => {
+ const loadingSpinner = document.getElementById("loading-spinner")
+ if (isLoading ){
+    loadingSpinner.classList.remove('hidden')
+   
+ }
+else{
+
+    setTimeout(() => {
+        loadingSpinner.classList.add('hidden');
+    }, 2000);
+}
 }
